@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Private workspace</p>
+        <h1>Закрытая доска для вас двоих</h1>
+        <p class="hero-copy">
+          Вход по аккаунту, общая доска, синхронизация в реальном времени и доступ только для участников.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <div id="user-pill" class="user-pill hidden"></div>
+        <button class="ghost-button hidden" id="logout-button" type="button">Выйти</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="status-banner" class="status-banner hidden"></section>
+
+      <section id="setup-panel" class="panel hidden">
+        <h2>Нужна настройка Supabase</h2>
+        <p>
+          Скопируйте <code>config.example.js</code> в <code>config.js</code>, вставьте URL проекта и publishable key,
+          затем выполните SQL из <code>supabase/schema.sql</code>.
+        </p>
+      </section>
+
+      <section id="auth-panel" class="panel hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Auth</p>
+            <h2>Вход в приватную доску</h2>
+          </div>
+          <p class="panel-copy">Только для двух приглашенных пользователей.</p>
+        </div>
+
+        <form id="auth-form" class="stack-form">
+          <input id="login-input" name="login" type="text" autocomplete="username" placeholder="Логин" required>
+          <input id="password-input" name="password" type="password" autocomplete="current-password" placeholder="Пароль" required>
+          <button type="submit">Войти</button>
+        </form>
+      </section>
+
+      <section id="app-panel" class="hidden">
+        <section class="toolbar">
+          <div class="toolbar-copy">
+            <h2 id="board-title">Общая доска</h2>
+            <p id="board-meta">Подключаем данные...</p>
+          </div>
+          <form id="column-form" class="column-form">
+            <input
+              id="column-title"
+              name="title"
+              type="text"
+              maxlength="40"
+              placeholder="Новая колонка"
+              aria-label="Название новой колонки"
+              required
+            >
+            <button type="submit">Добавить колонку</button>
+          </form>
+        </section>
+
+        <section id="board" class="board" aria-label="Доска задач"></section>
+      </section>
+    </main>
+  </div>
+
+  <template id="card-template">
+    <article class="card" draggable="true">
+      <div class="card-content">
+        <h3 class="card-title"></h3>
+        <p class="card-description"></p>
+      </div>
+      <button class="icon-button delete-card" type="button" aria-label="Удалить карточку">×</button>
+    </article>
+  </template>
+
+  <template id="column-template">
+    <section class="column">
+      <header class="column-header">
+        <div>
+          <h2 class="column-title"></h2>
+          <p class="column-count"></p>
+        </div>
+        <button class="icon-button delete-column" type="button" aria-label="Удалить колонку">×</button>
+      </header>
+
+      <div class="cards" aria-label="Карточки колонки"></div>
+
+      <form class="card-form">
+        <input
+          class="card-title-input"
+          name="title"
+          type="text"
+          maxlength="60"
+          placeholder="Название карточки"
+          required
+        >
+        <textarea
+          class="card-description-input"
+          name="description"
+          rows="3"
+          maxlength="160"
+          placeholder="Описание"
+        ></textarea>
+        <button type="submit">Добавить карточку</button>
+      </form>
+    </section>
+  </template>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
