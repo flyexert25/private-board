@@ -1,7 +1,3 @@
-data/board.db
-data/users.json
-data/*.db-shm
-data/*.db-wal
 __pycache__/
 *.pyc
-supabase/
+.DS_Store
